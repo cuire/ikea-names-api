@@ -1,3 +1,4 @@
+import random
 from pathlib import Path
 
 import torch
@@ -22,6 +23,12 @@ def load_model() -> RNN:
 
 def is_query_valid(query: str) -> bool:
     return all(ch in CHAR_TO_INDEX for ch in query)
+
+
+def random_query(length=2) -> str:
+    return "".join(
+        [INDEX_TO_CHAR[random.randint(0, VOCAB_SIZE - 1)] for _ in range(length)]
+    )
 
 
 def _predict(model: RNN, characters: list[str]) -> tuple[str, torch.Tensor]:
